@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">Lista de Tareas</h1>
+
+  <table border="1" style="width: 100%; text-align: left;">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Existe</th>
+        <th>Importante</th>
+        <th>Fecha Realización</th> <!-- Nueva columna -->
+        <th>Autor</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tarea in tareas %}
+      <tr>
+        <td>
+          <a href="{% url 'detalle_tarea' tarea.id %}">
+            {{ tarea.titulo }}
+          </a>
+        </td>
+        <td>
+          {% if tarea.existe %}
+            ✔️
+          {% else %}
+            ❌
+          {% endif %}
+        </td>
+        <td>
+          {% if tarea.importante %}
+            🌟
+          {% else %}
+            ❌
+          {% endif %}
+        </td>
+        <td>
+          {% if tarea.realizado %}
+            {{ tarea.realizado|date:"M j, Y - H:i" }}
+          {% else %}
+            Pendiente
+          {% endif %}
+        </td>
+        <td>{{ tarea.usuario.username }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
+
+
+
+
+
